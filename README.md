@@ -1,5 +1,6 @@
 # collabo
 git branch 
 
-## IIII
-- 내성적의 끝판왕
+-jhwa profile
+mbti: istp
+username: hwajlee
