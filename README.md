@@ -1,4 +1,6 @@
 # collabo
 git branch 
 
-istp
+-jhwa profile
+mbti: istp
+username: hwajlee
