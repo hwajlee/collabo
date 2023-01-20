@@ -1,9 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
+<img src="{% static 'night.jpg' %}" alt="night">
+
 <h1>Community</h1>
-<ul>
+
+<table class="table">
+    <thead>
+        <th scope="col">#</th>
+        <th scope="col">Author</th>
+        <th scope="col">Title</th>
+        <th scope="col">Replies</th>
+        <th scope="col">Updated</th>
+    </thead>
+    <tbody>
     {% for article in articles %}
-    <li>{{ article.pk }} | <a href="{% url 'board:art_detail' article.pk %}">{{ article.title }}</a> | <a href="{% url 'accounts:profile' article.user %}">{{ article.user }}</a> | {{ article.reply_set.count }} | {{ article.vote.count }}</li>
+    <tr>
+        <th scope="row">{{ article.pk }}</th>
+        <td>{{ article.user.username }}</td>
+        <td>
+            <a href="{% url 'board:art_detail' article.pk %}" style="color: black;text-decoration:none">{{article.title}}
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'board:art_detail' article.pk %}"></a>({{ article.reply_set.count }}) | +{{ article.vote.count }}
+        </td>
+        <td>
+            <a href="{% url 'board:art_detail' article.pk %}"></a>{{ article.updated_at }}
+        </td>
+        
+    </tr>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
+
 {% endblock content %}

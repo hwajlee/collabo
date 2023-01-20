@@ -39,6 +39,7 @@ def login(request):
         if form.is_valid():
             user = form.get_user()
             auth_login(request, user) # 로그인(쿠키 세팅)
+            return redirect('board:art_index')
     # GET 요청일 경우
     else:
         form = AuthenticationForm()
