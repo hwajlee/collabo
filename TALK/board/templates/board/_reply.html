@@ -1,6 +1,7 @@
 {% load board_extra %}
 {% if request.user.is_authenticated %}
 <form action="{% url 'board:create_com' article.pk %}" method="post">
+    {% csrf_token %}
     {{ repform }} <button>등록</button>
 </form>
 {% endif %}
@@ -15,13 +16,13 @@
             <button>삭제</button>
         </form>
         {% else %}
-        <form action="{% url 'board:vote_com ' article.pk reply.pk %}" method="post">
+        <form action="{% url 'board:vote_com' article.pk reply.pk %}" method="post">
             {% csrf_token %}
             {% rep_voted reply request.user as is_voted %}
             {% if is_voted %}
-            <button>+1</button>
-            {% else %}
             <button>-1</button>
+            {% else %}
+            <button>+1</button>
             {% endif %}
         </form>
         {% endif %}
