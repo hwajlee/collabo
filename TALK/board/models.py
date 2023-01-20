@@ -5,7 +5,7 @@ class Article(models.Model):
     title = models.CharField(max_length=20)
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    vote = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='voted')
+    vote = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='art_voted')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def is_voted(self, user):
@@ -15,6 +15,6 @@ class Reply(models.Model):
     comment = models.CharField(max_length=200)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    vote = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='voted')
+    vote = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='rep_voted')
     def is_voted(self, user):
         return self.vote.filter(pk=user.pk).exists()
