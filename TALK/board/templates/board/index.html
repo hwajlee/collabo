@@ -3,7 +3,7 @@
 <h1>Community</h1>
 <ul>
     {% for article in articles %}
-    <li>{{ article.pk }} | <a href="{% url 'board:art_detail' article.pk %}">{{ article.title }} | {{ article.user }} | {{ article.reply_set.count }} | {{ article.vote.count }}</a></li>
+    <li>{{ article.pk }} | <a href="{% url 'board:art_detail' article.pk %}">{{ article.title }}</a> | <a href="{% url 'accounts:profile' article.user %}">{{ article.user }}</a> | {{ article.reply_set.count }} | {{ article.vote.count }}</li>
     {% endfor %}
 </ul>
 {% endblock content %}

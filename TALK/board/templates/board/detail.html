@@ -17,9 +17,9 @@
     {% csrf_token %}
     {% art_voted article request.user as is_voted %}
     {% if is_voted %}
-    <button>추천</button>
-    {% else %}
     <button>비추천</button>
+    {% else %}
+    <button>추천</button>
     {% endif %}
 </form>
 {% endif %}
