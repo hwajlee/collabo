@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ artform.as_p }}
+    <button onclick="return confirm('{{ btn }}하시겠습니까?')">{{ btn }}</button>
+</form>
+{% endblock content %}
