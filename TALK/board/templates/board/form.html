@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<h1>글 {{ btn }}</h1>
 <form action="" method="post">
     {% csrf_token %}
     {{ artform.as_p }}

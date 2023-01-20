@@ -25,9 +25,9 @@ def create_art(request):
             article = artform.save(commit=False)
             article.user = request.user
             article.save()
-            redirect('board:art_detail', article.pk)
+            return redirect('board:art_detail', article.pk)
     else:
-        article = ArtForm()
+        artform = ArtForm()
     context = {'title': 'Writing', 'btn': '등록', 'artform': artform}
     return render(request, 'board/form.html', context)
 @login_required
