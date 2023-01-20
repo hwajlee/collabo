@@ -1,3 +1,4 @@
+{% load board_extra %}
 {% if request.user.is_authenticated %}
 <form action="{% url 'board:create_com' article.pk %}" method="post">
     {{ repform }} <button>등록</button>
