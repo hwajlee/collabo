@@ -8,7 +8,7 @@ from .forms import ArtForm, ReplyForm
 @require_safe
 def art_index(request):
     articles = Article.objects.order_by('-pk')
-    context = {'titlt': 'Home', 'articles': articles}
+    context = {'title': 'Home', 'articles': articles}
     return render(request, 'board/index.html', context)
 @require_safe
 def art_detail(request, artpk):
