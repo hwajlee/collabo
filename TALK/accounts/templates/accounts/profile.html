@@ -1,0 +1,45 @@
+<!--accounts/profile.html-->
+
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ profile_user.username }}</h1>
+
+<div>
+    follower: {{ profile_user.follower.count }} |
+    following: {{ profile_user.following.count }}
+    {% if request.user.is_authenticated and request.user != profile_user %}
+    <form action="{% url 'accounts:follow' profile_user.username %}" method="POST">
+        {% csrf_token %}
+        {% if is_following %}
+        <button>Unfollow</button>
+        {% else %}
+        <button>Follow</button>
+        {% endif %}
+    </form>
+    {% endif %}
+</div>
+
+<h2>Article list</h2>
+<ul>
+    {% for article in profile_user.article_set.all %}
+    <li>
+        <a href="{% url 'board:art_detail' article.pk %}">
+            {{ article.title }}
+        </a>            
+    </li>
+    {% endfor %}
+</ul>
+
+<h2>Reply list</h2>
+<ul>
+    {% for reply in profile_user.reply_set.all  %}
+    <li>
+        <a href="{% url 'board:art_detail' article.pk %}">
+            {{ reply.comment }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
