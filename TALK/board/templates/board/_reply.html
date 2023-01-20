@@ -1,0 +1,29 @@
+{% if request.user.is_authenticated %}
+<form action="{% url 'board:create_com' article.pk %}" method="post">
+    {{ repform }} <button>등록</button>
+</form>
+{% endif %}
+<h2>{{ article.reply_set.count }}건의 댓글 목록</h2>
+<ul>
+    {% for reply in article.reply_set.all %}
+    {{ reply.comment }} | {{ reply.user }} ({{ reply.vote.count }})
+    {% if request.user.is_authenticated %}
+        {% if request.user == reply.user %}
+        <form action="{% url 'board:delete_com' article.pk reply.pk %}" method="post">
+            {% csrf_token %}
+            <button>삭제</button>
+        </form>
+        {% else %}
+        <form action="{% url 'board:vote_com ' article.pk reply.pk %}" method="post">
+            {% csrf_token %}
+            {% rep_voted reply request.user as is_voted %}
+            {% if is_voted %}
+            <button>+1</button>
+            {% else %}
+            <button>-1</button>
+            {% endif %}
+        </form>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+</ul>

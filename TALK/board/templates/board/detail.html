@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load board_extra %}
+<h1>{{ article.title }}</h1>
+<p>작성자: {{ article.user }}</p>
+{{ article.content | linebreaks }}
+{% if request.user == article.user %}
+<div>
+    <p><a href="{% url 'board:update_art' article.pk %}"><button>수정하기</button></a></p>
+    <form action="{% url 'board:delete_art' article.pk %}" method="post">
+        {% csrf_token %}
+        <button onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+    </form>
+</div>
+{% elif request.user.is_authenticated %}
+<form action="{% url 'board:vote_art' article.pk %}" method="post">
+    {% csrf_token %}
+    {% art_voted article request.user as is_voted %}
+    {% if is_voted %}
+    <button>추천</button>
+    {% else %}
+    <button>비추천</button>
+    {% endif %}
+</form>
+{% endif %}
+<hr>
+{% include '_reply.html' %}
+{% endblock content %}
