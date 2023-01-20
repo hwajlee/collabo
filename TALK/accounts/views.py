@@ -12,7 +12,7 @@ User = get_user_model()
 @require_http_methods(['GET', 'POST'])
 def signup(request):
     # 이미 login한 user라면 -> '로그인하셨습니다.' 출력
-    if request.user.is_authencicated:
+    if request.user.is_authenticated:
         return HttpResponseBadRequest('로그인 하셨습니다.')
     # POST 요청일 경우 회원가입 폼 저장 > 로그인 > 홈화면 redirect 
     if request.method == 'POST':
@@ -26,12 +26,12 @@ def signup(request):
         form = CustomUserCreationForm()
 
     context = {'form': form}
-    return render(request,'accounts/signup.hml', context)
+    return render(request,'accounts/signup.html', context)
 
 @require_http_methods(['GET', 'POST'])
 def login(request):
     # login한 user라면 -> '로그인하셨습니다.' 출력
-    if request.user.is_authencicated:
+    if request.user.is_authenticated:
         return HttpResponseBadRequest('로그인 하셨습니다.')
     # POST 요청일 경우, 로그인 폼에 사용자가 입력한 값이 유효할 경우 이를 저장해서 로그인  
     if request.method == 'POST':
